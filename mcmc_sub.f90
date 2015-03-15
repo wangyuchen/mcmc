@@ -29,7 +29,7 @@ subroutine mcmc(l,g0,g1,g,p,result)
 
 
   ! iteration-length vector
-  real, dimension(0:g) :: logprob
+  real(kind=8), dimension(0:g) :: logprob
   integer(kind=8), dimension(l, 0:2) :: sum_counts
 
   real(kind=8) p1, p2, mh, delta1, delta2
@@ -177,7 +177,7 @@ subroutine substitute(Iold, Iprop, l, sub_flag, pos)
   integer, dimension(2), intent(out) :: pos
 
   real(kind=8) :: rand1, rand2
-  integer :: tmk1, tmkn, m, n
+  integer :: tmk1, tmkn
 
   ! tmk1 is sampled from (0, 1, 2)
   call random_number(rand1)
@@ -225,7 +225,7 @@ end subroutine substitute
 
 
 subroutine init_random_seed()
-  integer :: i, n, clock
+  integer :: n, clock
   integer, dimension(:), allocatable :: seed
 
   call random_seed(size = n)
@@ -264,11 +264,11 @@ function prior(total)
   i1 = total(1)
   i2 = total(2)
 
-  l1 = lgamma(dble(k(1)+i0))+lgamma(dble(k(2)+i1))+ &
-  lgamma(dble(k(3)+i2))-lgamma(dble(sum(k)+i0+i1+i2))
+  l1 = lgamma(k(1)+i0) + lgamma(k(2)+i1) + &
+  lgamma(k(3)+i2)-lgamma(sum(k)+i0+i1+i2)
 
-  l2 = lgamma(dble(sum(k)))-lgamma(dble(k(1)))-&
-  lgamma(dble(k(2)))-lgamma(dble(k(3)))
+  l2 = lgamma(sum(k))-lgamma(k(1)) - &
+  lgamma(k(2))-lgamma(k(3))
 
   prior = l1 + l2
 end function prior
