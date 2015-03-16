@@ -7,7 +7,7 @@ subroutine mcmc(l,g0,g1,g,p,result)
 
   interface
     function prior(total)
-      real(kind=8) :: prior
+      real(kind = 8) :: prior
       integer, dimension(0:2), intent(in) :: total
     end function prior
 
@@ -30,7 +30,7 @@ subroutine mcmc(l,g0,g1,g,p,result)
 
   ! iteration-length vector
   real(kind=8), dimension(0:g) :: logprob
-  integer(kind=8), dimension(l, 0:2) :: sum_counts
+  integer, dimension(l, 0:2) :: sum_counts
 
   real(kind=8) p1, p2, mh, delta1, delta2
   real(kind=8), dimension(l) :: lk2
