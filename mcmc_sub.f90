@@ -44,8 +44,8 @@ subroutine mcmc(l,g0,g1,g,p,result)
   real(kind=8) rand
   real :: t1, t2, t3, t4, t5, t_s1 = 0, t_s2 = 0, t_s3 = 0
 
-  !call init_random_seed()
   call cpu_time(t1)
+  ! call init_random_seed()
 
   ! set initial Iold
   ! g0, g1, and l-g0-g1 is the initial count for 1, 2, 0
@@ -225,7 +225,7 @@ end subroutine substitute
 
 
 subroutine init_random_seed()
-  integer :: n, clock
+  integer :: i, n, clock
   integer, dimension(:), allocatable :: seed
 
   call random_seed(size = n)
@@ -233,8 +233,7 @@ subroutine init_random_seed()
 
   call system_clock(count=clock)
 
-  !seed = clock + 37 * (/ (i - 1, i = 1, n) /)
-  seed=1232312
+  seed = clock + 37 * (/ (i - 1, i = 1, n) /)
   call random_seed(put = seed)
 
   deallocate(seed)
