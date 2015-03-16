@@ -41,7 +41,6 @@ subroutine mcmc(l,g0,g1,g,p,result)
 
   ! misc
   integer :: i
-  real(kind=8) rand
   real :: t1, t2, t3, t4, t5, t_s1 = 0, t_s2 = 0, t_s3 = 0
 
   call cpu_time(t1)
@@ -176,7 +175,7 @@ subroutine substitute(Iold, Iprop, l, sub_flag, pos)
   integer, dimension(l), intent(out) :: Iprop
   integer, dimension(2), intent(out) :: pos
 
-  real(kind=8) :: rand1, rand2
+  real :: rand1, rand2
   integer :: tmk1, tmkn
 
   ! tmk1 is sampled from (0, 1, 2)
