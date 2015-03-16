@@ -17,22 +17,20 @@ mcmc <- function(p, l = 2000L, g0 = 100L, g1 = 200L, g = l * 1000L) {
 }
 
 sum_counts <- mcmc(p)
+
+
 Iprop <- apply(sum_counts, MARGIN = 1, which.max) - 1
 summary(as.factor(Iprop))
 
-
-result_Iprop3 <- read.table("~/R/mcmc/result_Iprop3.txt", quote="\"")
+result_Iprop3 <- read.table("result_Iprop3.txt")
 result_Iprop3 <- as.vector(t(result_Iprop3))
 summary(as.factor(result_Iprop3))
 
-trueI <- read.table("./trueI.txt")
+trueI <- read.table("trueI.txt")
 trueI <- trueI$V1
 summary(as.factor(trueI))
 
-result_Iprop <- scan()
-summary(as.factor(result_Iprop))
-
-
-sum(trueI == result_Iprop)
+# test difference
+sum(trueI == result_Iprop3)
 sum(trueI == Iprop)
-sum(result_Iprop == Iprop)
+sum(result_Iprop3 == Iprop)
