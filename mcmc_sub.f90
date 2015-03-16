@@ -242,9 +242,7 @@ end subroutine init_random_seed
 
 
 function prior(total)
-
   implicit none
-
   ! interface
   !   function gammln(xx)
   !     REAL(kind=8) gammln
@@ -253,22 +251,20 @@ function prior(total)
   !   end function gammln
   ! end interface
 
-  real(kind=8) :: prior
+  real(kind = 8) :: prior
   integer, dimension(0:2), intent(in) :: total
 
-  real, parameter, dimension(1:3) :: k = (/1, 1, 1/)
-  real :: l1,l2
-  integer :: i0,i1,i2
+  real(kind = 8), parameter, dimension(1:3) :: k = (/1, 1, 1/)
+  real(kind = 8) :: l1, l2
+  integer :: i0, i1, i2
 
   i0 = total(0)
   i1 = total(1)
   i2 = total(2)
 
-  l1 = lgamma(k(1)+i0) + lgamma(k(2)+i1) + &
-  lgamma(k(3)+i2)-lgamma(sum(k)+i0+i1+i2)
-
-  l2 = lgamma(sum(k))-lgamma(k(1)) - &
-  lgamma(k(2))-lgamma(k(3))
+  l1 = dlgama(k(1)+i0) + dlgama(k(2)+i1) + &
+       dlgama(k(3)+i2) - dlgama(sum(k)+i0+i1+i2)
+  l2 = dlgama(sum(k)) - dlgama(k(1)) - dlgama(k(2)) - dlgama(k(3))
 
   prior = l1 + l2
 end function prior
